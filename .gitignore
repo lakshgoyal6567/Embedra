@@ -1,0 +1,19 @@
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Data files
+adrf/
+embeddings/
+processed/
+raw_data/
+summaries/
+output.adrf.parquet
+stats.json
+
+# IDE / Editor specific
+.vscode/
+.idea/

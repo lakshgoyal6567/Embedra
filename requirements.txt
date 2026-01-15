@@ -1,0 +1,17 @@
+torch
+torchvision
+transformers
+pillow
+imagehash
+numpy
+faiss-cpu
+pyarrow
+pandas
+tqdm
+scikit-learn
+python-dotenv
+pinecone-client
+boto3
+pypdf
+python-docx
+sentence-transformers
