@@ -17,3 +17,5 @@ stats.json
 # IDE / Editor specific
 .vscode/
 .idea/
+
+docs/
