@@ -1,12 +1,20 @@
 import argparse
 import os
 import glob
+import hashlib
 from tqdm import tqdm
 from PIL import Image
 import pillow_avif # Register AVIF support
 import json
 import numpy as np
 import pandas as pd
+import sys
+
+# Add the project root to the Python path to enable imports from 'src'
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 
 # Import modules
 from src.embeddings import EmbeddingExtractor
@@ -298,3 +306,30 @@ def main():
         # Final cleanup for combined_df
         # Re-convert metadata to string for Parquet storage if needed
         combined_df['metadata'] = combined_df['metadata'].apply(json.dumps)
+        
+        # --- Compute Stats & Save ---
+        print("Computing dataset stats...")
+        stats = compute_dataset_stats(combined_df['embedding'].tolist())
+        
+        print(f"Saving stats to {args.stats_file}")
+        os.makedirs(os.path.dirname(args.stats_file), exist_ok=True)
+        with open(args.stats_file, 'w') as f:
+            json.dump(stats, f, indent=4)
+
+        print(f"Saving ADRF dataset to {args.output_file}")
+        save_to_parquet(combined_df, args.output_file)
+        
+        print("Curation tasks...")
+        scores = calculate_contribution_scores(combined_df)
+        combined_df['contribution_score'] = scores
+        
+        curated_df = apply_coverage_driven_curation(combined_df, 0.5) # 50% target
+        
+        print("Generating preview...")
+        os.makedirs(args.preview_dir, exist_ok=True)
+        generate_preview(curated_df, args.preview_dir, num_images=20)
+        
+        print("✅ ADRF file and stats saved successfully.")
+
+if __name__ == "__main__":
+    main()

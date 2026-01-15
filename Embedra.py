@@ -57,7 +57,7 @@ def main():
     if args.command == "process_all":
         print(f"🧱 Embedra: Processing all raw data locally (Privacy Mode)...")
         # Call the new orchestrator script
-        cmd = f"python adrf_convert_all.py --input_dir \"{args.input_dir}\""
+        cmd = f"python src/processing/adrf_convert_all.py --input_dir \"{args.input_dir}\""
         run_command(cmd)
         print("\n✅ Processing complete. Data remains on your machine.")
 
