@@ -14,7 +14,7 @@ def run_command(command):
         sys.exit(1)
 
 def main():
-    parser = argparse.ArgumentParser(description="🧱 project_name CLI: The Sustainable AI Data Manager")
+    parser = argparse.ArgumentParser(description="🧱 Embedra CLI: The Sustainable AI Data Manager")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
     # --- 1. PROCESS ALL (Local / Private) ---
@@ -55,14 +55,14 @@ def main():
     args = parser.parse_args()
 
     if args.command == "process_all":
-        print(f"🧱 project_name: Processing all raw data locally (Privacy Mode)...")
+        print(f"🧱 Embedra: Processing all raw data locally (Privacy Mode)...")
         # Call the new orchestrator script
         cmd = f"python adrf_convert_all.py --input_dir \"{args.input_dir}\""
         run_command(cmd)
         print("\n✅ Processing complete. Data remains on your machine.")
 
     elif args.command == "upload":
-        print("🧱 project_name Cloud: Initiating Secure Upload...")
+        print("🧱 Embedra Cloud: Initiating Secure Upload...")
         print("   1. Syncing Search Index (Pinecone)...")
         run_command("python scripts/pinecone_sync.py --upload")
         
@@ -76,7 +76,7 @@ def main():
             cmd = f"python scripts/demo_search.py --query \"{args.query}\""
             run_command(cmd)
         else:
-            print(f"☁️ Searching project_name Cloud...")
+            print(f"☁️ Searching Embedra Cloud...")
             cmd = f"python scripts/pinecone_sync.py --search_text \"{args.query}\""
             run_command(cmd)
 

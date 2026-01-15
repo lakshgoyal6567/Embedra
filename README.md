@@ -1,4 +1,4 @@
-# ADRF System (AI Data Residue Format)
+# Embedra (AI Data Residue Format)
 
 ## Overview
 A system to convert raw datasets into compact, model-aware representations (ADRF) using embeddings, deduplication, and efficient storage.

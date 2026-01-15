@@ -1,9 +1,9 @@
-# 🧱 project_name Project: Documentation
+# 🧱 Embedra Project: Documentation
 
 **Sustainable AI Data Management | The "MP3" for Computer Vision Datasets**
 
 ## 1. Overview
-The **project_name System** converts heavy raw datasets into a lightweight "Residue" format (ADRF). It is designed with **Privacy by Default**. Your data stays on your machine unless you explicitly choose to upload it to the Cloud Vault.
+The **Embedra System** converts heavy raw datasets into a lightweight "Residue" format (ADRF). It is designed with **Privacy by Default**. Your data stays on your machine unless you explicitly choose to upload it to the Cloud Vault.
 
 ---
 
@@ -27,22 +27,22 @@ The project uses a `.env` file to manage API keys and other secrets. Before runn
 2.  **Add your API keys** to the `.env` file. The file includes placeholders for your `PINECONE_API_KEY` and AWS credentials.
 
 **4. Setup**
-We provide a unified tool: `project_name.py`.
+We provide a unified tool: `Embedra.py`.
 
 ### 🔒 Step 1: Process (Private)
 Converts raw images into Vectors/Metadata. **No data leaves your computer.**
 ```bash
-python project_name.py process
+python Embedra.py process
 ```
 *   **Input:** `data/raw_data/` folder.
 *   **Output:** `data/adrf/dataset.adrf.parquet` (The Residue).
 *   **Action:** You can now delete the raw images if you only need local metadata search.
 
 ### ☁️ Step 2: Upload (Optional Cloud Backup)
-**Only run this if you want to use the project_name Cloud features.**
+**Only run this if you want to use the Embedra Cloud features.**
 This uploads your Vectors to **Pinecone** and your Images to **AWS S3**.
 ```bash
-python project_name.py upload
+python Embedra.py upload
 ```
 *   **Cost:** Ingest is free. Retrieval is paid.
 *   **Benefit:** Zero-risk backup. Global search. Data marketplace ready.
@@ -52,12 +52,12 @@ Query your dataset using natural language.
 
 **Local Search (Private):**
 ```bash
-python project_name.py search "a green tree"
+python Embedra.py search "a green tree"
 ```
 
 **Cloud Search (Remote):**
 ```bash
-python project_name.py search "a green tree" --mode cloud
+python Embedra.py search "a green tree" --mode cloud
 ```
 
 ---
