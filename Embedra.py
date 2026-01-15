@@ -14,7 +14,7 @@ def run_command(command):
         sys.exit(1)
 
 def main():
-    parser = argparse.ArgumentParser(description="🧱 Embedra CLI: The Sustainable AI Data Manager")
+    parser = argparse.ArgumentParser(description="Embedra CLI: The Sustainable AI Data Manager")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
     # --- 1. PROCESS ALL (Local / Private) ---
@@ -55,39 +55,39 @@ def main():
     args = parser.parse_args()
 
     if args.command == "process_all":
-        print(f"🧱 Embedra: Processing all raw data locally (Privacy Mode)...")
+        print(f"Embedra: Processing all raw data locally (Privacy Mode)...")
         # Call the new orchestrator script
         cmd = f"python src/processing/adrf_convert_all.py --input_dir \"{args.input_dir}\""
         run_command(cmd)
-        print("\n✅ Processing complete. Data remains on your machine.")
+        print("\nProcessing complete. Data remains on your machine.")
 
     elif args.command == "upload":
-        print("🧱 Embedra Cloud: Initiating Secure Upload...")
+        print("Embedra Cloud: Initiating Secure Upload...")
         print("   1. Syncing Search Index (Pinecone)...")
         run_command("python scripts/pinecone_sync.py --upload")
         
         print("\n   2. Syncing Image Vault (S3)...")
         run_command("python scripts/s3_upload.py")
-        print("\n✅ Cloud Sync Complete. Your data is now backed up and searchable globally.")
+        print("\nCloud Sync Complete. Your data is now backed up and searchable globally.")
 
     elif args.command == "search":
         if args.mode == "local":
-            print(f"🔍 Searching Local ADRF (Confidence > 0.25)...")
+            print(f"Searching Local ADRF (Confidence > 0.25)...")
             cmd = f"python scripts/demo_search.py --query \"{args.query}\""
             run_command(cmd)
         else:
-            print(f"☁️ Searching Embedra Cloud...")
+            print(f"Searching Embedra Cloud...")
             cmd = f"python scripts/pinecone_sync.py --search_text \"{args.query}\""
             run_command(cmd)
 
     elif args.command == "search_docs":
-        print(f"🔍 Searching Local Document ADRF...")
+        print(f"Searching Local Document ADRF...")
         cmd = f"python scripts/demo_search_docs.py \"{args.query}\" --file \"{args.file}\" --model \"{args.model}\" --top_k {args.top_k} --min_score {args.min_score}"
         run_command(cmd)
-        print("\n✅ Document Search Complete.")
+        print("\nDocument Search Complete.")
 
     elif args.command == "search_multimodal":
-        print(f"🔍 Searching Multimodal ADRF...")
+        print(f"Searching Multimodal ADRF...")
         # Construct the command for demo_search_multimodal.py
         cmd_parts = [
             "python", "scripts/demo_search_multimodal.py",
@@ -104,7 +104,7 @@ def main():
         
         cmd = " ".join(cmd_parts)
         run_command(cmd)
-        print("\n✅ Multimodal Search Complete.")
+        print("\nMultimodal Search Complete.")
 
     else:
         parser.print_help()

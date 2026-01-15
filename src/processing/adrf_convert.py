@@ -320,16 +320,16 @@ def main():
         save_to_parquet(combined_df, args.output_file)
         
         print("Curation tasks...")
-        scores = calculate_contribution_scores(combined_df)
+        scores, _ = calculate_contribution_scores(np.stack(combined_df['embedding'].to_numpy()))
         combined_df['contribution_score'] = scores
         
         curated_df = apply_coverage_driven_curation(combined_df, 0.5) # 50% target
         
         print("Generating preview...")
         os.makedirs(args.preview_dir, exist_ok=True)
-        generate_preview(curated_df, args.preview_dir, num_images=20)
+        generate_preview(curated_df.head(20), args.preview_dir)
         
-        print("✅ ADRF file and stats saved successfully.")
+        print("ADRF file and stats saved successfully.")
 
 if __name__ == "__main__":
     main()
