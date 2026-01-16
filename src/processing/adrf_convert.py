@@ -338,9 +338,10 @@ def main():
         
         curated_df = apply_coverage_driven_curation(combined_df, 0.5) # 50% target
         
-        print("Generating preview...")
+        print("Generating preview (Curation Sort)...")
         os.makedirs(args.preview_dir, exist_ok=True)
-        generate_preview(curated_df.head(20), args.preview_dir)
+        # Process all records for curation sorting
+        generate_preview(curated_df, args.preview_dir)
         
         print("ADRF file and stats saved successfully.")
 
