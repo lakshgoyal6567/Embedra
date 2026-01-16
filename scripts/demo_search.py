@@ -20,7 +20,7 @@ def main():
     parser.add_argument("--file", type=str, default=default_file, help="ADRF Parquet file to search")
     parser.add_argument("--top_k", type=int, default=3, help="Number of results to return")
     parser.add_argument("--min_score", type=float, default=0.25, help="Min confidence (0.0-1.0). Default: 0.25 (Good for Text). Use 0.70+ for Image-to-Image.")
-    parser.add_argument("--model", type=str, default="laion/CLIP-ViT-H-14-laion2B-s32B-b79K", help="HuggingFace model name for embedding extraction.")
+    parser.add_argument("--model", type=str, default="openai/clip-vit-base-patch16", help="HuggingFace model name for embedding extraction.")
     
     args = parser.parse_args()
     
