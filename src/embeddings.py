@@ -6,7 +6,15 @@ from typing import List, Dict, Tuple
 
 class EmbeddingExtractor:
     def __init__(self, model_name="openai/clip-vit-large-patch14", device=None):
-        self.device = device if device else ("cuda" if torch.cuda.is_available() else "cpu")
+        if device:
+            self.device = device
+        elif torch.cuda.is_available():
+            self.device = "cuda"
+        elif torch.backends.mps.is_available():
+            self.device = "mps"
+        else:
+            self.device = "cpu"
+            
         print(f"Loading model {model_name} on {self.device}...")
         self.model = CLIPModel.from_pretrained(model_name).to(self.device)
         self.processor = CLIPProcessor.from_pretrained(model_name)
