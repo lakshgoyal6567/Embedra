@@ -57,9 +57,19 @@ python Embedra.py upload
 ### Step 3: Search
 Query your dataset using natural language.
 
-**Local Search (Private):**
+**Text Search (Private):**
 ```bash
 python Embedra.py search "a green tree"
+```
+
+**Document Search (Private):**
+```bash
+python Embedra.py search_docs "security policy"
+```
+
+**Multimodal Search (Images + Docs):**
+```bash
+python Embedra.py search_multimodal "cyber security" --search_images --search_docs
 ```
 
 **Cloud Search (Remote):**
@@ -69,7 +79,12 @@ python Embedra.py search "a green tree" --mode cloud
 
 ---
 
-## 3. Architecture
+## 3. Supported Formats
+The system automatically detects and processes files in `data/raw_data`:
+*   **Images:** `.jpg`, `.jpeg`, `.png`, `.bmp`, `.webp`, `.avif`, `.tiff`, `.tif`
+*   **Documents:** `.pdf`, `.docx`, `.txt`
+
+## 4. Architecture
 
 | Layer | Technology | Privacy | Description |
 | :--- | :--- | :--- | :--- |
@@ -77,11 +92,17 @@ python Embedra.py search "a green tree" --mode cloud
 | **Index** | Parquet / Pinecone | **Hybrid** | Local Parquet (Default) or Pinecone (Opt-in). |
 | **Storage** | HDD / S3 | **Hybrid** | Local Folder (Default) or AWS S3 (Opt-in). |
 
-## 4. Confidence Scores (Calibration)
+## 5. Maintenance
+To reset your project and delete all generated data (ADRF files, previews, stats):
+```bash
+python scripts/clean.py
+```
+
+## 6. Confidence Scores (Calibration)
 *   **Text Search:** Good matches are **> 25%** (0.25).
 *   **Image Search:** Good matches are **> 80%** (0.80).
 
-## 5. Business Model (Cloud Tier)
+## 7. Business Model (Cloud Tier)
 *   **Tier 1 (Local):** Free. You manage your storage.
 *   **Tier 2 (Vault):** We store it. You pay to retrieve/download.
 *   **Tier 3 (Market):** You earn credits by sharing data; spend credits to get data.

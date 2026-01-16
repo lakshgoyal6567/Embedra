@@ -3,9 +3,10 @@ import shutil
 import glob
 
 def clean_project():
-    project_root = os.path.dirname(os.path.abspath(__file__))
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.abspath(os.path.join(script_dir, ".."))
     
-    print("--- Cleaning project ---")
+    print(f"--- Cleaning project (Root: {project_root}) ---")
 
     # 1. Remove __pycache__ directories
     for dirpath, dirnames, filenames in os.walk(project_root):
