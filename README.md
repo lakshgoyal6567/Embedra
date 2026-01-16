@@ -32,11 +32,18 @@ We provide a unified tool: `Embedra.py`.
 ### Step 1: Process (Private)
 Converts raw images into Vectors/Metadata. **No data leaves your computer.**
 ```bash
-python Embedra.py process
+python Embedra.py process_all
 ```
-*   **Input:** `data/raw_data/` folder.
-*   **Output:** `data/adrf/dataset.adrf.parquet` (The Residue).
+*   **Input:** `data/raw_data/` folder (images) and `data/raw_docs/` (documents).
+*   **Output:** `data/adrf/` (The Residue).
 *   **Action:** You can now delete the raw images if you only need local metadata search.
+
+**Automatic Curation:**
+The system automatically analyzes and sorts your images into four folders inside `data/summaries/preview/`:
+1.  **Important:** High-value, unique, or high-complexity images.
+2.  **Keep:** Standard quality images that should be retained.
+3.  **Review:** Borderline images that may require manual inspection.
+4.  **Unnecessary:** Low-quality, duplicates, or low-information images.
 
 ### Step 2: Upload (Optional Cloud Backup)
 **Only run this if you want to use the Embedra Cloud features.**
