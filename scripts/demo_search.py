@@ -9,10 +9,15 @@ from src.embeddings import EmbeddingExtractor
 
 
 def main():
+    # Determine default path relative to script location to support running from any directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Assuming standard structure: scripts/ -> root/ -> data/
+    default_file = os.path.abspath(os.path.join(script_dir, "..", "data", "adrf", "dataset.adrf.parquet"))
+
     parser = argparse.ArgumentParser(description="Search your ADRF Dataset")
     parser.add_argument("--query", type=str, help="Text query to search for (e.g., 'a red car')")
     parser.add_argument("--image", type=str, help="Path to an image file to use as query")
-    parser.add_argument("--file", type=str, default="../data/adrf/dataset.adrf.parquet", help="ADRF Parquet file to search")
+    parser.add_argument("--file", type=str, default=default_file, help="ADRF Parquet file to search")
     parser.add_argument("--top_k", type=int, default=3, help="Number of results to return")
     parser.add_argument("--min_score", type=float, default=0.25, help="Min confidence (0.0-1.0). Default: 0.25 (Good for Text). Use 0.70+ for Image-to-Image.")
     parser.add_argument("--model", type=str, default="laion/CLIP-ViT-H-14-laion2B-s32B-b79K", help="HuggingFace model name for embedding extraction.")

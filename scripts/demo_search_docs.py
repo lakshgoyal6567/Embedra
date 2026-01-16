@@ -45,9 +45,13 @@ class ADRFDocReader:
         return results
 
 def main():
+    # Determine default path relative to script location
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    default_file = os.path.abspath(os.path.join(script_dir, "..", "data", "adrf", "dataset_docs.adrf.parquet"))
+
     parser = argparse.ArgumentParser(description="Search your ADRF Document Dataset")
     parser.add_argument("query", type=str, help="Text query to search for")
-    parser.add_argument("--file", type=str, default="data/adrf/dataset_docs.adrf.parquet", help="ADRF Document Parquet file to search")
+    parser.add_argument("--file", type=str, default=default_file, help="ADRF Document Parquet file to search")
     parser.add_argument("--model", type=str, default="all-MiniLM-L6-v2", help="Sentence Transformer model name")
     parser.add_argument("--top_k", type=int, default=3, help="Number of results to return")
     parser.add_argument("--min_score", type=float, default=0.20, help="Min confidence (0.0-1.0). Default: 0.20.")

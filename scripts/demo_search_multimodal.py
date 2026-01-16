@@ -14,12 +14,17 @@ from src.reader import ADRFReader # For image ADRF
 from src.reader_docs import ADRFDocReader # For document ADRF
 
 def main():
+    # Determine default paths relative to script location
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    default_image_file = os.path.abspath(os.path.join(script_dir, "..", "data", "adrf", "dataset.adrf.parquet"))
+    default_doc_file = os.path.abspath(os.path.join(script_dir, "..", "data", "adrf", "dataset_docs.adrf.parquet"))
+
     parser = argparse.ArgumentParser(description="Multimodal ADRF Search")
     parser.add_argument("query", type=str, help="Text query to search for")
     parser.add_argument("--search_images", action="store_true", help="Search image ADRF")
     parser.add_argument("--search_docs", action="store_true", help="Search document ADRF")
-    parser.add_argument("--image_file", type=str, default="data/adrf/dataset.adrf.parquet", help="Path to image ADRF file")
-    parser.add_argument("--doc_file", type=str, default="data/adrf/dataset_docs.adrf.parquet", help="Path to document ADRF file")
+    parser.add_argument("--image_file", type=str, default=default_image_file, help="Path to image ADRF file")
+    parser.add_argument("--doc_file", type=str, default=default_doc_file, help="Path to document ADRF file")
     parser.add_argument("--model_image", type=str, default="openai/clip-vit-base-patch16", help="CLIP model for image embeddings")
     parser.add_argument("--model_text", type=str, default="all-MiniLM-L6-v2", help="Sentence Transformer model for text embeddings")
     parser.add_argument("--top_k", type=int, default=5, help="Number of top results to return")
