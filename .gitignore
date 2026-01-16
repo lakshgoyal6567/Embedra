@@ -5,14 +5,18 @@
 __pycache__/
 *.pyc
 
-# Data files
-adrf/
-embeddings/
-processed/
-raw_data/
-summaries/
+# Data files (Project Root)
+data/adrf/*
+!data/adrf/.gitkeep
+data/embeddings/
+data/processed/
+data/raw_data/
+data/summaries/
 output.adrf.parquet
 stats.json
+
+# Ignore accidentally created data in source folders
+src/processing/data/
 
 # IDE / Editor specific
 .vscode/

@@ -44,22 +44,28 @@ def main():
             # Add audio/video checks here in the future
     
     script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Assuming standard structure: src/processing -> src -> root
+    project_root = os.path.abspath(os.path.join(script_dir, "..", ".."))
+    
+    output_dir = os.path.join(project_root, "data", "adrf")
 
     # Process Images
     if found_image_files:
         print("\n--- Starting Image Processing ---")
         image_extensions_str = ",".join(image_extensions)
+        output_file_img = os.path.join(output_dir, "dataset.adrf.parquet")
         cmd_parts = [
             "python", 
             "adrf_convert.py", 
             "--input_dir", input_path, 
+            "--output_file", output_file_img,
             "--file_types", image_extensions_str
         ]
         return_code = run_sub_command(cmd_parts, cwd=script_dir)
         if return_code != 0:
             print("Image processing failed.")
         else:
-            print("Image processing complete.")
+            print(f"Image processing complete. Output: {output_file_img}")
         print("--- Image Processing Finished ---\n")
     else:
         print("No image files found. Skipping image processing.")
@@ -68,17 +74,19 @@ def main():
     if found_doc_files:
         print("\n--- Starting Document Processing ---")
         doc_extensions_str = ",".join(doc_extensions)
+        output_file_doc = os.path.join(output_dir, "dataset_docs.adrf.parquet")
         cmd_parts = [
             "python", 
             "adrf_convert_docs.py", 
             "--input_dir", input_path, 
+            "--output_file", output_file_doc,
             "--file_types", doc_extensions_str
         ]
         return_code = run_sub_command(cmd_parts, cwd=script_dir)
         if return_code != 0:
             print("Document processing failed.")
         else:
-            print("Document processing complete.")
+            print(f"Document processing complete. Output: {output_file_doc}")
         print("--- Document Processing Finished ---\n")
         
     print("\n--- All requested processing types completed ---")

@@ -91,6 +91,18 @@ def main():
         print(f"Error: Input directory {args.input_dir} does not exist.")
         return
 
+    # Check if there are any files to process
+    valid_extensions = tuple(args.file_types.split(','))
+    found_files = []
+    for root, _, files in os.walk(args.input_dir):
+        for file in files:
+            if file.lower().endswith(valid_extensions):
+                found_files.append(os.path.join(root, file))
+    
+    if not found_files:
+        print(f"No images found in {args.input_dir} with extensions {args.file_types}. Skipping processing.")
+        return
+
     try:
         extractor = EmbeddingExtractor(model_name=args.model)
         # Get dimension dynamically from model config
@@ -317,6 +329,7 @@ def main():
             json.dump(stats, f, indent=4)
 
         print(f"Saving ADRF dataset to {args.output_file}")
+        os.makedirs(os.path.dirname(args.output_file), exist_ok=True)
         save_to_parquet(combined_df, args.output_file)
         
         print("Curation tasks...")
