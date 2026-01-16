@@ -78,7 +78,7 @@ def main():
     for i, res in enumerate(results):
         # FAISS with IndexFlatIP returns the inner product, which is the cosine similarity.
         # Higher is better.
-        similarity = res.get('distance', -1.0)
+        similarity = res.get('similarity', -1.0)
         
         if similarity < args.min_score:
             if similarity > top_discarded:
