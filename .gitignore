@@ -8,10 +8,16 @@ __pycache__/
 # Data files (Project Root)
 data/adrf/*
 !data/adrf/.gitkeep
-data/embeddings/
-data/processed/
-data/raw_data/
-data/summaries/
+data/embeddings/*
+!data/embeddings/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/raw_data/*
+!data/raw_data/.gitkeep
+data/raw_docs/*
+!data/raw_docs/.gitkeep
+data/summaries/*
+!data/summaries/.gitkeep
 output.adrf.parquet
 stats.json
 
